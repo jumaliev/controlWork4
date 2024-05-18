@@ -1,6 +1,7 @@
 import model.Cat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class App {
@@ -11,9 +12,10 @@ public class App {
         cats.add(new Cat("UmpaLumpa"));
         cats.add(new Cat("Victus"));
         cats.add(new Cat("fewfer"));
-        printCats();
+        printCats(cats);
     }
-    public void printCats() {
+    public void printCats(List<Cat> cats) {
+        cats.sort(Comparator.comparing(Cat::getAverageLevel).reversed());
         String headerStr = ("""
                 ---+-------------+---------+----------+------------+---------+-----------------+
                  # |     Имя     | Возраст | Здоровье | Настроение | Сытость | Средний уровень |
