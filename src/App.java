@@ -1,10 +1,14 @@
 import model.Cat;
 
+import java.security.PublicKey;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class App {
+    public Scanner sc = new Scanner(System.in);
     public List<Cat> cats = new ArrayList<>();
     public void appRunner() {
 
@@ -12,9 +16,36 @@ public class App {
         cats.add(new Cat("UmpaLumpa"));
         cats.add(new Cat("Victus"));
         cats.add(new Cat("fewfer"));
-        printCats(cats);
+        printCats();
+        addNewCat();
+        printCats();
     }
-    public void printCats(List<Cat> cats) {
+
+    public void addNewCat(){
+        String name;
+        String age;
+        while (true) {
+            System.out.print("Введите имя нового кота: ");
+            name = sc.nextLine();
+            if (name.matches("[a-zA-ZА-Яа-я]+")){
+               break;
+            } else {
+                System.out.println("Некорректная имя, введите еще раз!");
+            }
+        }
+        while (true) {
+            System.out.print("Введите возраст нового кота (от 1 до 18): ");
+            age = sc.nextLine();
+            if (age.matches("[1-9]+") && Integer.parseInt(age) < 18 && Integer.parseInt(age) > 0) {
+                break;
+            }else {
+                System.out.println("Введен неправильный возраст введите еще раз!!!");
+            }
+        }
+        cats.add(new Cat(name, Integer.parseInt(age)));
+
+    }
+    public void printCats() {
         cats.sort(Comparator.comparing(Cat::getAverageLevel).reversed());
         String headerStr = ("""
                 ---+-------------+---------+----------+------------+---------+-----------------+

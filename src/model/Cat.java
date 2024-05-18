@@ -24,9 +24,9 @@ public class Cat {
     public Cat(String name) {
         this.name = name;
         this.age = Randomizer.randomizer(18) + 1;
-        this.satietyLevel = Randomizer.randomizer(101);
-        this.healthLevel = Randomizer.randomizer(101);
-        this.moodLevel = Randomizer.randomizer(101);
+        this.satietyLevel = Randomizer.randomizer(60) + 20;
+        this.healthLevel = Randomizer.randomizer(60) + 20;
+        this.moodLevel = Randomizer.randomizer(60) + 20;
         this.averageLevel = (satietyLevel + moodLevel + healthLevel) / 3;
     }
 
