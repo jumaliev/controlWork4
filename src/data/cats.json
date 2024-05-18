@@ -1,38 +1,38 @@
 [
   {
-    "name": "fewfer",
-    "age": 3,
-    "satietyLevel": 40.0,
-    "moodLevel": 74.0,
-    "healthLevel": 71.0,
-    "averageLevel": 61.666666666666664,
-    "action": true
-  },
-  {
     "name": "Murka",
-    "age": 5,
-    "satietyLevel": 50.0,
-    "moodLevel": 58.0,
+    "age": 16,
+    "satietyLevel": 54.0,
+    "moodLevel": 54.0,
     "healthLevel": 49.0,
     "averageLevel": 52.333333333333336,
     "action": true
   },
   {
-    "name": "Victus",
-    "age": 5,
-    "satietyLevel": 58.0,
-    "moodLevel": 59.0,
-    "healthLevel": 36.0,
-    "averageLevel": 51.0,
+    "name": "UmpaLumpa",
+    "age": 8,
+    "satietyLevel": 45.0,
+    "moodLevel": 73.0,
+    "healthLevel": 22.0,
+    "averageLevel": 46.666666666666664,
     "action": true
   },
   {
-    "name": "UmpaLumpa",
-    "age": 15,
-    "satietyLevel": 23.0,
-    "moodLevel": 39.0,
-    "healthLevel": 49.0,
-    "averageLevel": 37.0,
+    "name": "Victus",
+    "age": 2,
+    "satietyLevel": 43.0,
+    "moodLevel": 31.0,
+    "healthLevel": 32.0,
+    "averageLevel": 35.333333333333336,
+    "action": true
+  },
+  {
+    "name": "fewfer",
+    "age": 16,
+    "satietyLevel": 63.0,
+    "moodLevel": 45.0,
+    "healthLevel": 54.0,
+    "averageLevel": 54.0,
     "action": true
   }
 ]

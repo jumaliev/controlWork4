@@ -4,10 +4,7 @@ import utils.ReadAndWrite;
 import java.io.IOException;
 import java.security.PublicKey;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
     public Scanner sc = new Scanner(System.in);
@@ -20,9 +17,13 @@ public class App {
         cats.add(new Cat("Victus"));
         cats.add(new Cat("fewfer"));
         printCats();
-        ReadAndWrite.writeFile(cats);
+        while (true) {
+            ReadAndWrite.writeFile(cats);
             interaction();
-        System.out.println( ReadAndWrite.readFile());
+            System.out.println(ReadAndWrite.readFile());
+            ReadAndWrite.writeFile(cats);
+        }
+
 
 
     }
@@ -36,9 +37,10 @@ public class App {
                     3) Полечить кота
                     4) Добавить нового питоца
                     5) Следующий день
+                    6) Чтобы отсортировать и вывезти на экран
                     Поле для ввода:""");
             String userAction = sc.nextLine();
-            if (userAction.matches("[1-5]")) {
+            if (userAction.matches("[1-6]")) {
                 int userActionInt = Integer.parseInt(userAction);
                 switch (userActionInt) {
                     case 1:
@@ -60,6 +62,9 @@ public class App {
                     case 5:
                         nextDay();
                         printCats();
+                        break;
+                    case 6:
+                        sorting();
                         break;
                 }
                 break;
@@ -96,7 +101,6 @@ public class App {
     }
 
     public void printCats() {
-        cats.sort(Comparator.comparing(Cat::getAverageLevel).reversed());
         String headerStr = ("""
                 \n---+-------------+---------+----------+------------+---------+-----------------+
                  # |     Имя     | Возраст | Здоровье | Настроение | Сытость | Средний уровень |
@@ -129,6 +133,54 @@ public class App {
             cat.nextDay(cat);
         }
         System.out.println("Наступил следущий день!");
+    }
+
+    public void sorting() {
+        while (true) {
+            System.out.print("""
+                Как отсортировать котов? \s
+                1) По имени
+                2) По возрасту
+                3) По здоровью
+                4) По настроению
+                5) По сытости
+                6) По среднему уровню
+                """);
+            String userChoiseStr = sc.nextLine();
+            if (userChoiseStr.matches("[1-6]")) {
+                int userChoise = Integer.parseInt(userChoiseStr);
+                switch (userChoise) {
+                    case 1:
+                        cats.stream().sorted(Comparator.comparing(Cat::getName));
+                        printCats();
+                        break;
+                    case 2:
+                        cats.stream().sorted(Comparator.comparing(Cat::getAge));
+                        printCats();
+                        break;
+                    case 3:
+                        cats.stream().sorted(Comparator.comparing(Cat::getHealthLevel));
+                        printCats();
+                        break;
+                    case 4:
+                        cats.stream().sorted(Comparator.comparing(Cat::getMoodLevel));
+                        printCats();
+                        break;
+                    case 5:
+                        cats.stream().sorted(Comparator.comparing(Cat::getSatietyLevel));
+                        printCats();
+                        break;
+                    case 6:
+                        cats.stream().sorted(Comparator.comparing(Cat::getAverageLevel));
+                        printCats();
+                        break;
+                }
+                return;
+            } else {
+                System.out.println("Введено направильное действие, попробуйуте еще раз!");
+            }
+        }
+
     }
 }
 
