@@ -2,6 +2,7 @@ package model;
 
 import utils.Randomizer;
 
+import java.nio.file.Path;
 import java.util.Random;
 
 public class Cat {
@@ -52,6 +53,88 @@ public class Cat {
 
     public double getAverageLevel() {
         return averageLevel;
+    }
+
+    public void setSatietyLevel(double satietyLevel) {
+        this.satietyLevel = satietyLevel;
+    }
+
+    public void setMoodLevel(double moodLevel) {
+        this.moodLevel = moodLevel;
+    }
+
+    public void setHealthLevel(double healthLevel) {
+        this.healthLevel = healthLevel;
+    }
+
+    public void setAverageLevel(double averageLevel) {
+        this.averageLevel = averageLevel;
+    }
+
+    public void setAction(boolean action) {
+        this.action = action;
+    }
+
+    public static void feedCat(Cat cat) {
+        if ((cat.getSatietyLevel() + 7) < 100 && (cat.getMoodLevel() + 7) < 100) {
+            if(cat.getAge() <= 5) {
+                cat.setSatietyLevel(cat.getSatietyLevel() + 7);
+                cat.setMoodLevel(cat.getMoodLevel() + 7);
+            } else if (cat.getAge() >= 6 && cat.getAge() <= 10) {
+                cat.setSatietyLevel(cat.getSatietyLevel() + 5);
+                cat.setMoodLevel(cat.getMoodLevel() + 5);
+            } else {
+                cat.setSatietyLevel(cat.getSatietyLevel() + 4);
+                cat.setMoodLevel(cat.getMoodLevel() + 4);
+            }
+        } else {
+            cat.setSatietyLevel(100);
+            cat.setMoodLevel(100);
+        }
+
+    }
+    public static void treatCat(Cat cat) {
+        if ((cat.getHealthLevel() + 7) < 100 && (cat.getMoodLevel() - 6) > 0 && (cat.getSatietyLevel() - 6) > 0) {
+            if (cat.getAge() <= 5) {
+                cat.setHealthLevel(cat.getHealthLevel() + 7);
+                cat.setMoodLevel(cat.getMoodLevel() - 3);
+                cat.setSatietyLevel(cat.getSatietyLevel() - 3);
+            } else if (cat.getAge() >= 6 && cat.getAge() <= 10) {
+                cat.setHealthLevel(cat.getHealthLevel() + 5);
+                cat.setMoodLevel(cat.getMoodLevel() - 5);
+                cat.setSatietyLevel(cat.getSatietyLevel() - 5);
+            } else {
+                cat.setHealthLevel(cat.getHealthLevel() + 4);
+                cat.setMoodLevel(cat.getMoodLevel() - 6);
+                cat.setSatietyLevel(cat.getSatietyLevel() - 6);
+            }
+        } else {
+            cat.setHealthLevel(100);
+            cat.setMoodLevel(0);
+            cat.setSatietyLevel(0);
+        }
+    }
+    public static void playCat(Cat cat) {
+        if ((cat.getMoodLevel() + 7) < 100 && (cat.getHealthLevel() + 7) < 100 && (cat.getSatietyLevel() - 6) > 0) {
+            if (cat.getAge() <= 5) {
+                cat.setMoodLevel(cat.getMoodLevel() + 7);
+                cat.setHealthLevel(cat.getHealthLevel() + 7);
+                cat.setSatietyLevel(cat.getSatietyLevel() - 3);
+            } else if (cat.getAge() >= 6 && cat.getAge() <= 10) {
+                cat.setMoodLevel(cat.getMoodLevel() + 5);
+                cat.setHealthLevel(cat.getHealthLevel() + 5);
+                cat.setSatietyLevel(cat.getSatietyLevel() - 5);
+            } else {
+                cat.setMoodLevel(cat.getMoodLevel() + 4);
+                cat.setHealthLevel(cat.getHealthLevel() + 4);
+                cat.setSatietyLevel(cat.getSatietyLevel() - 6);
+            }
+        } else {
+            cat.setMoodLevel(100);
+            cat.setHealthLevel(100);
+            cat.setSatietyLevel(0);
+        }
+
     }
 
     @Override
