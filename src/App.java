@@ -43,6 +43,7 @@ public class App {
             }
         }
         cats.add(new Cat(name, Integer.parseInt(age)));
+        
 
     }
     public void printCats() {
