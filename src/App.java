@@ -1,5 +1,7 @@
 import model.Cat;
+import utils.ReadAndWrite;
 
+import java.io.IOException;
 import java.security.PublicKey;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -11,16 +13,17 @@ public class App {
     public Scanner sc = new Scanner(System.in);
     public List<Cat> cats = new ArrayList<>();
 
-    public void appRunner() {
+    public void appRunner(){
 
         cats.add(new Cat("Murka"));
         cats.add(new Cat("UmpaLumpa"));
         cats.add(new Cat("Victus"));
         cats.add(new Cat("fewfer"));
         printCats();
-        while (true) {
+        ReadAndWrite.writeFile(cats);
             interaction();
-        }
+        System.out.println( ReadAndWrite.readFile());
+
 
     }
 
