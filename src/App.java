@@ -1,6 +1,7 @@
 import model.Cat;
 import utils.Randomizer;
 import utils.ReadAndWrite;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,7 +11,7 @@ public class App {
     private boolean out = true;
 
 
-    public void appRunner(){
+    public void appRunner() {
         cats.add(new Cat("Murka"));
         cats.add(new Cat("UmpaLumpa"));
         cats.add(new Cat("Victus"));
@@ -42,22 +43,24 @@ public class App {
                 switch (userActionInt) {
                     case 1:
                         if (Randomizer.randomizer(10) < 4) {
-                            choiseCat().poisoning();
+                            choiceCat().poisoning();
+                            catDeathCheck();
                         } else {
-                            Cat.feedCat(choiseCat());
+                            Cat.feedCat(choiceCat());
                         }
                         printCats();
                         break;
                     case 2:
                         if (Randomizer.randomizer(10) < 3) {
-                            choiseCat().injury();
+                            choiceCat().injury();
+                            catDeathCheck();
                         } else {
-                            Cat.playCat(choiseCat());
+                            Cat.playCat(choiceCat());
                         }
                         printCats();
                         break;
                     case 3:
-                        Cat.treatCat(choiseCat());
+                        Cat.treatCat(choiceCat());
                         printCats();
                         break;
                     case 4:
@@ -125,7 +128,7 @@ public class App {
         }
     }
 
-    private Cat choiseCat() {
+    private Cat choiceCat() {
         while (true) {
             System.out.print("Введите порядковый номер кота: ");
             String userChoise = sc.nextLine();
@@ -147,18 +150,18 @@ public class App {
     private void sorting() {
         while (true) {
             System.out.print("""
-                Как отсортировать котов? \s
-                1) По имени
-                2) По возрасту
-                3) По здоровью
-                4) По настроению
-                5) По сытости
-                6) По среднему уровню
-                """);
-            String userChoiseStr = sc.nextLine();
-            if (userChoiseStr.matches("[1-6]")) {
-                int userChoise = Integer.parseInt(userChoiseStr);
-                switch (userChoise) {
+                    Как отсортировать котов? \s
+                    1) По имени
+                    2) По возрасту
+                    3) По здоровью
+                    4) По настроению
+                    5) По сытости
+                    6) По среднему уровню
+                    """);
+            String userChoiceStr = sc.nextLine();
+            if (userChoiceStr.matches("[1-6]")) {
+                int userChoice = Integer.parseInt(userChoiceStr);
+                switch (userChoice) {
                     case 1:
                         cats = cats.stream().sorted(Comparator.comparing(Cat::getName)).collect(Collectors.toList());
                         printCats();
@@ -192,10 +195,10 @@ public class App {
         }
 
     }
+
     private void catDeathCheck() {
-        ReadAndWrite.readFile();
         for (int i = 0; i < cats.size(); i++) {
-            if(cats.get(i).getHealthLevel() <= 0) {
+            if (cats.get(i).getHealthLevel() <= 0) {
                 cats.remove(cats.get(i));
                 System.err.printf("\nКот по имени %s умер.\n", cats.get(i).getName());
             }

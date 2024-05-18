@@ -101,8 +101,7 @@ public class Cat {
             cat.setName("* " + cat.getName());
         } else if (!cat.isAction()) {
             System.out.println("С котом можно выполнять дейстивие только раз в день!");
-        }
-        else {
+        } else {
             cat.setSatietyLevel(100);
             cat.setMoodLevel(100);
             System.out.printf("\nУ кота %s значения не могут быть больше 100.", cat.getName());
@@ -168,9 +167,9 @@ public class Cat {
                         cat.getName());
             }
             cat.setName("* " + cat.getName());
-        }  else if (!cat.isAction()) {
+        } else if (!cat.isAction()) {
             System.out.println("С котом можно выполнять дейстивие только раз в день!");
-        }else {
+        } else {
             cat.setMoodLevel(100);
             cat.setHealthLevel(100);
             cat.setSatietyLevel(0);
@@ -204,16 +203,17 @@ public class Cat {
     public void poisoning() {
         int poisoning = Randomizer.randomizer(15) + 5;
         int poisoningHealth = Randomizer.randomizer(20) + 5;
-        System.err.printf("\nКот отравился, настроение уменьшено на %d и здоровье на %d\n",poisoning
-                , poisoningHealth);
+        System.err.printf("\nКот отравился, настроение уменьшено на %d и здоровье на %d\n",
+                poisoning, poisoningHealth);
         setHealthLevel(getHealthLevel() - poisoningHealth);
         setMoodLevel(getMoodLevel() + poisoning);
     }
+
     public void injury() {
         int injury = Randomizer.randomizer(20) + 5;
         int injuryHealth = Randomizer.randomizer(25) + 5;
-        System.err.printf("\nКот травмировался, настроение уменьшено на %d и здоровье на %d\n",injury
-                , injuryHealth);
+        System.err.printf("\nКот травмировался, настроение уменьшено на %d и здоровье на %d\n",
+                injury, injuryHealth);
         setHealthLevel(getHealthLevel() - injuryHealth);
         setMoodLevel(getMoodLevel() + injury);
     }
