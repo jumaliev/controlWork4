@@ -1,14 +1,16 @@
 package model;
 
 import utils.Randomizer;
+
 public class Cat {
-    private final String name;
+    private String name;
     private final int age;
     private double satietyLevel;
     private double moodLevel;
     private double healthLevel;
     private double averageLevel;
     private boolean action;
+
     public Cat(String name, int age) {
         this.name = name;
         this.age = age;
@@ -16,7 +18,9 @@ public class Cat {
         this.healthLevel = Randomizer.randomizer(60) + 20;
         this.moodLevel = Randomizer.randomizer(60) + 20;
         this.averageLevel = (satietyLevel + moodLevel + healthLevel) / 3;
+        this.action = true;
     }
+
     public Cat(String name) {
         this.name = name;
         this.age = Randomizer.randomizer(18) + 1;
@@ -24,6 +28,7 @@ public class Cat {
         this.healthLevel = Randomizer.randomizer(60) + 20;
         this.moodLevel = Randomizer.randomizer(60) + 20;
         this.averageLevel = (satietyLevel + moodLevel + healthLevel) / 3;
+        this.action = true;
     }
 
     public String getName() {
@@ -70,9 +75,17 @@ public class Cat {
         this.averageLevel = (satietyLevel + moodLevel + healthLevel) / 3;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isAction() {
+        return action;
+    }
+
     public static void feedCat(Cat cat) {
-        if ((cat.getSatietyLevel() + 7) < 100 && (cat.getMoodLevel() + 7) < 100) {
-            if(cat.getAge() <= 5) {
+        if ((cat.getSatietyLevel() + 7) < 100 && (cat.getMoodLevel() + 7) < 100 && cat.isAction()) {
+            if (cat.getAge() <= 5) {
                 cat.setSatietyLevel(cat.getSatietyLevel() + 7);
                 cat.setMoodLevel(cat.getMoodLevel() + 7);
                 System.out.printf("\nВы накормили кота %s, настроение и сытость кота увеличены на 7.", cat.getName());
@@ -85,16 +98,22 @@ public class Cat {
                 cat.setMoodLevel(cat.getMoodLevel() + 4);
                 System.out.printf("\nВы накормили кота %s, настроение и сытость кота увеличены на 4.", cat.getName());
             }
-        } else {
+            cat.setName("* " + cat.getName());
+        } else if (!cat.isAction()) {
+            System.out.println("С котом можно выполнять дейстивие только раз в день!");
+        }
+        else {
             cat.setSatietyLevel(100);
             cat.setMoodLevel(100);
             System.out.printf("\nУ кота %s значения не могут быть больше 100.", cat.getName());
         }
         cat.setAverageLevel();
+        cat.setAction(false);
 
     }
+
     public static void treatCat(Cat cat) {
-        if ((cat.getHealthLevel() + 7) < 100 && (cat.getMoodLevel() - 6) > 0 && (cat.getSatietyLevel() - 6) > 0) {
+        if ((cat.getHealthLevel() + 7) < 100 && (cat.getMoodLevel() - 6) > 0 && (cat.getSatietyLevel() - 6) > 0 && cat.isAction()) {
             if (cat.getAge() <= 5) {
                 cat.setHealthLevel(cat.getHealthLevel() + 7);
                 cat.setMoodLevel(cat.getMoodLevel() - 3);
@@ -114,6 +133,9 @@ public class Cat {
                 System.out.printf("\nВы полечили кота %s, здоровье кота увеличено на 4, а настроение и стость уменьшены на 6",
                         cat.getName());
             }
+            cat.setName("* " + cat.getName());
+        } else if (!cat.isAction()) {
+            System.out.println("С котом можно выполнять дейстивие только раз в день!");
         } else {
             cat.setHealthLevel(100);
             cat.setMoodLevel(0);
@@ -121,9 +143,11 @@ public class Cat {
             System.out.printf("\nУ кота %s значения не могут быть больше 100.", cat.getName());
         }
         cat.setAverageLevel();
+        cat.setAction(false);
     }
+
     public static void playCat(Cat cat) {
-        if ((cat.getMoodLevel() + 7) < 100 && (cat.getHealthLevel() + 7) < 100 && (cat.getSatietyLevel() - 6) > 0) {
+        if ((cat.getMoodLevel() + 7) < 100 && (cat.getHealthLevel() + 7) < 100 && (cat.getSatietyLevel() - 6) > 0 && cat.isAction()) {
             if (cat.getAge() <= 5) {
                 cat.setMoodLevel(cat.getMoodLevel() + 7);
                 cat.setHealthLevel(cat.getHealthLevel() + 7);
@@ -143,14 +167,20 @@ public class Cat {
                 System.out.printf("\nВы поиграли с котом %s, настроение и здоровье кота увеличены на 4, а сытость уменьшена на 6.",
                         cat.getName());
             }
-        } else {
+            cat.setName("* " + cat.getName());
+        }  else if (!cat.isAction()) {
+            System.out.println("С котом можно выполнять дейстивие только раз в день!");
+        }else {
             cat.setMoodLevel(100);
             cat.setHealthLevel(100);
             cat.setSatietyLevel(0);
             System.out.printf("\nУ кота %s значения не могут быть больше 100.", cat.getName());
         }
         cat.setAverageLevel();
+        cat.setAction(false);
+
     }
+
     public void nextDay(Cat cat) {
         int randomSatiety = Randomizer.randomizer(5) + 1;
         int randomMoodAndHEalth = Randomizer.randomizer(7) - 3;
@@ -167,6 +197,8 @@ public class Cat {
             cat.setHealthLevel(100);
         }
         setAverageLevel();
+        cat.setName(cat.getName().replace("* ", ""));
+        cat.setAction(true);
     }
 
     @Override

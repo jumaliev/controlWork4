@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class App {
     public Scanner sc = new Scanner(System.in);
     public List<Cat> cats = new ArrayList<>();
+
     public void appRunner() {
 
         cats.add(new Cat("Murka"));
@@ -22,16 +23,17 @@ public class App {
         }
 
     }
+
     public void interaction() {
         while (true) {
             System.out.print("""
-                \nДоступные действия:
-                1) Накормить кота
-                2) Поиграть с котом
-                3) Полечить кота
-                4) Добавить нового питоца
-                5) Следующий день
-                Поле для ввода:""");
+                    \nДоступные действия:
+                    1) Накормить кота
+                    2) Поиграть с котом
+                    3) Полечить кота
+                    4) Добавить нового питоца
+                    5) Следующий день
+                    Поле для ввода:""");
             String userAction = sc.nextLine();
             if (userAction.matches("[1-5]")) {
                 int userActionInt = Integer.parseInt(userAction);
@@ -56,8 +58,6 @@ public class App {
                         nextDay();
                         printCats();
                         break;
-
-
                 }
                 break;
             } else {
@@ -68,14 +68,14 @@ public class App {
     }
 
 
-    public void addNewCat(){
+    public void addNewCat() {
         String name;
         String age;
         while (true) {
             System.out.print("Введите имя нового кота: ");
             name = sc.nextLine();
-            if (name.matches("[a-zA-ZА-Яа-я]+")){
-               break;
+            if (name.matches("[a-zA-ZА-Яа-я]+")) {
+                break;
             } else {
                 System.out.println("Некорректная имя, введите еще раз!");
             }
@@ -85,7 +85,7 @@ public class App {
             age = sc.nextLine();
             if (age.matches("[1-9]+") && Integer.parseInt(age) <= 18 && Integer.parseInt(age) > 0) {
                 break;
-            }else {
+            } else {
                 System.out.println("Введен неправильный возраст введите еще раз!!!");
             }
         }
@@ -108,7 +108,8 @@ public class App {
             }
         }
     }
-    public Cat  choiseCat() {
+
+    public Cat choiseCat() {
         while (true) {
             System.out.print("Введите порядковый номер кота: ");
             String userChoise = sc.nextLine();
@@ -119,6 +120,7 @@ public class App {
             }
         }
     }
+
     public void nextDay() {
         for (Cat cat : cats) {
             cat.nextDay(cat);
