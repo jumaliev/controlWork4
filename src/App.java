@@ -1,54 +1,59 @@
 import model.Cat;
+import utils.Randomizer;
 import utils.ReadAndWrite;
-
-import java.io.IOException;
-import java.security.PublicKey;
-import java.sql.SQLOutput;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class App {
-    public Scanner sc = new Scanner(System.in);
-    public List<Cat> cats = new ArrayList<>();
+    private final Scanner sc = new Scanner(System.in);
+    private List<Cat> cats = new ArrayList<>();
+    private boolean out = true;
+
 
     public void appRunner(){
-
         cats.add(new Cat("Murka"));
         cats.add(new Cat("UmpaLumpa"));
         cats.add(new Cat("Victus"));
-        cats.add(new Cat("fewfer"));
+        cats.add(new Cat("Putin"));
         printCats();
-        while (true) {
+        while (out) {
             ReadAndWrite.writeFile(cats);
             interaction();
-            System.out.println(ReadAndWrite.readFile());
             ReadAndWrite.writeFile(cats);
         }
 
-
-
     }
 
-    public void interaction() {
+    private void interaction() {
         while (true) {
             System.out.print("""
                     \nДоступные действия:
                     1) Накормить кота
                     2) Поиграть с котом
                     3) Полечить кота
-                    4) Добавить нового питоца
+                    4) Добавить нового кота
                     5) Следующий день
                     6) Чтобы отсортировать и вывезти на экран
+                    0) Чтобы выйти
                     Поле для ввода:""");
             String userAction = sc.nextLine();
-            if (userAction.matches("[1-6]")) {
+            if (userAction.matches("[0-6]")) {
                 int userActionInt = Integer.parseInt(userAction);
                 switch (userActionInt) {
                     case 1:
-                        Cat.feedCat(choiseCat());
+                        if (Randomizer.randomizer(10) < 4) {
+                            choiseCat().poisoning();
+                        } else {
+                            Cat.feedCat(choiseCat());
+                        }
                         printCats();
                         break;
                     case 2:
-                        Cat.playCat(choiseCat());
+                        if (Randomizer.randomizer(10) < 3) {
+                            choiseCat().injury();
+                        } else {
+                            Cat.playCat(choiseCat());
+                        }
                         printCats();
                         break;
                     case 3:
@@ -61,11 +66,15 @@ public class App {
                         break;
                     case 5:
                         nextDay();
+                        catDeathCheck();
                         printCats();
                         break;
                     case 6:
                         sorting();
                         break;
+                    case 0:
+                        System.out.println("Выход!");
+                        out = false;
                 }
                 break;
             } else {
@@ -76,7 +85,7 @@ public class App {
     }
 
 
-    public void addNewCat() {
+    private void addNewCat() {
         String name;
         String age;
         while (true) {
@@ -100,7 +109,7 @@ public class App {
         cats.add(new Cat(name, Integer.parseInt(age)));
     }
 
-    public void printCats() {
+    private void printCats() {
         String headerStr = ("""
                 \n---+-------------+---------+----------+------------+---------+-----------------+
                  # |     Имя     | Возраст | Здоровье | Настроение | Сытость | Средний уровень |
@@ -116,7 +125,7 @@ public class App {
         }
     }
 
-    public Cat choiseCat() {
+    private Cat choiseCat() {
         while (true) {
             System.out.print("Введите порядковый номер кота: ");
             String userChoise = sc.nextLine();
@@ -128,14 +137,14 @@ public class App {
         }
     }
 
-    public void nextDay() {
+    private void nextDay() {
         for (Cat cat : cats) {
             cat.nextDay(cat);
         }
-        System.out.println("Наступил следущий день!");
+        System.out.println("\nНаступил следущий день!");
     }
 
-    public void sorting() {
+    private void sorting() {
         while (true) {
             System.out.print("""
                 Как отсортировать котов? \s
@@ -151,36 +160,47 @@ public class App {
                 int userChoise = Integer.parseInt(userChoiseStr);
                 switch (userChoise) {
                     case 1:
-                        cats.stream().sorted(Comparator.comparing(Cat::getName));
+                        cats = cats.stream().sorted(Comparator.comparing(Cat::getName)).collect(Collectors.toList());
                         printCats();
                         break;
                     case 2:
-                        cats.stream().sorted(Comparator.comparing(Cat::getAge));
+                        cats = cats.stream().sorted(Comparator.comparingInt(Cat::getAge).reversed()).collect(Collectors.toList());
                         printCats();
                         break;
                     case 3:
-                        cats.stream().sorted(Comparator.comparing(Cat::getHealthLevel));
+                        cats = cats.stream().sorted(Comparator.comparing(Cat::getHealthLevel).reversed()).collect(Collectors.toList());
                         printCats();
                         break;
                     case 4:
-                        cats.stream().sorted(Comparator.comparing(Cat::getMoodLevel));
+                        cats = cats.stream().sorted(Comparator.comparing(Cat::getMoodLevel).reversed()).collect(Collectors.toList());
                         printCats();
                         break;
                     case 5:
-                        cats.stream().sorted(Comparator.comparing(Cat::getSatietyLevel));
+                        cats = cats.stream().sorted(Comparator.comparing(Cat::getSatietyLevel).reversed()).collect(Collectors.toList());
                         printCats();
                         break;
                     case 6:
-                        cats.stream().sorted(Comparator.comparing(Cat::getAverageLevel));
+                        cats = cats.stream().sorted(Comparator.comparing(Cat::getAverageLevel).reversed()).collect(Collectors.toList());
                         printCats();
                         break;
                 }
+                ReadAndWrite.writeFile(cats);
                 return;
             } else {
                 System.out.println("Введено направильное действие, попробуйуте еще раз!");
             }
         }
 
+    }
+    private void catDeathCheck() {
+        ReadAndWrite.readFile();
+        for (int i = 0; i < cats.size(); i++) {
+            if(cats.get(i).getHealthLevel() <= 0) {
+                cats.remove(cats.get(i));
+                System.err.printf("\nКот по имени %s умер.\n", cats.get(i).getName());
+            }
+        }
+        ReadAndWrite.writeFile(cats);
     }
 }
 

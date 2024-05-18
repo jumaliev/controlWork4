@@ -1,38 +1,38 @@
 [
   {
+    "name": "Victus",
+    "age": 14,
+    "satietyLevel": 53.0,
+    "moodLevel": 73.0,
+    "healthLevel": 42.0,
+    "averageLevel": 56.0,
+    "action": true
+  },
+  {
+    "name": "Putin",
+    "age": 1,
+    "satietyLevel": 32.0,
+    "moodLevel": 50.0,
+    "healthLevel": 44.0,
+    "averageLevel": 42.0,
+    "action": true
+  },
+  {
     "name": "Murka",
-    "age": 16,
-    "satietyLevel": 54.0,
-    "moodLevel": 54.0,
-    "healthLevel": 49.0,
-    "averageLevel": 52.333333333333336,
+    "age": 1,
+    "satietyLevel": 26.0,
+    "moodLevel": 51.0,
+    "healthLevel": 27.0,
+    "averageLevel": 34.666666666666664,
     "action": true
   },
   {
     "name": "UmpaLumpa",
-    "age": 8,
-    "satietyLevel": 45.0,
-    "moodLevel": 73.0,
-    "healthLevel": 22.0,
-    "averageLevel": 46.666666666666664,
-    "action": true
-  },
-  {
-    "name": "Victus",
-    "age": 2,
-    "satietyLevel": 43.0,
-    "moodLevel": 31.0,
-    "healthLevel": 32.0,
-    "averageLevel": 35.333333333333336,
-    "action": true
-  },
-  {
-    "name": "fewfer",
-    "age": 16,
-    "satietyLevel": 63.0,
-    "moodLevel": 45.0,
-    "healthLevel": 54.0,
-    "averageLevel": 54.0,
+    "age": 4,
+    "satietyLevel": 21.0,
+    "moodLevel": 26.0,
+    "healthLevel": 70.0,
+    "averageLevel": 39.0,
     "action": true
   }
 ]

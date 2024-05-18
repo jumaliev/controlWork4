@@ -118,19 +118,19 @@ public class Cat {
                 cat.setHealthLevel(cat.getHealthLevel() + 7);
                 cat.setMoodLevel(cat.getMoodLevel() - 3);
                 cat.setSatietyLevel(cat.getSatietyLevel() - 3);
-                System.out.printf("\nВы полечили кота %s, здоровье кота увеличено на 7, а настроение и стость уменьшены на 3",
+                System.out.printf("\nВы полечили кота %s, здоровье кота увеличено на 7, а настроение и сытость уменьшены на 3",
                         cat.getName());
             } else if (cat.getAge() >= 6 && cat.getAge() <= 10) {
                 cat.setHealthLevel(cat.getHealthLevel() + 5);
                 cat.setMoodLevel(cat.getMoodLevel() - 5);
                 cat.setSatietyLevel(cat.getSatietyLevel() - 5);
-                System.out.printf("\nВы полечили кота %s, здоровье кота увеличено на 5, а настроение и стость уменьшены на 5",
+                System.out.printf("\nВы полечили кота %s, здоровье кота увеличено на 5, а настроение и сытость уменьшены на 5",
                         cat.getName());
             } else {
                 cat.setHealthLevel(cat.getHealthLevel() + 4);
                 cat.setMoodLevel(cat.getMoodLevel() - 6);
                 cat.setSatietyLevel(cat.getSatietyLevel() - 6);
-                System.out.printf("\nВы полечили кота %s, здоровье кота увеличено на 4, а настроение и стость уменьшены на 6",
+                System.out.printf("\nВы полечили кота %s, здоровье кота увеличено на 4, а настроение и сытость уменьшены на 6",
                         cat.getName());
             }
             cat.setName("* " + cat.getName());
@@ -201,15 +201,20 @@ public class Cat {
         cat.setAction(true);
     }
 
-    @Override
-    public String toString() {
-        return "Cat{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", satietyLevel=" + satietyLevel +
-                ", moodLevel=" + moodLevel +
-                ", healthLevel=" + healthLevel +
-                ", averageLevel=" + averageLevel +
-                '}';
+    public void poisoning() {
+        int poisoning = Randomizer.randomizer(15) + 5;
+        int poisoningHealth = Randomizer.randomizer(20) + 5;
+        System.err.printf("\nКот отравился, настроение уменьшено на %d и здоровье на %d\n",poisoning
+                , poisoningHealth);
+        setHealthLevel(getHealthLevel() - poisoningHealth);
+        setMoodLevel(getMoodLevel() + poisoning);
+    }
+    public void injury() {
+        int injury = Randomizer.randomizer(20) + 5;
+        int injuryHealth = Randomizer.randomizer(25) + 5;
+        System.err.printf("\nКот травмировался, настроение уменьшено на %d и здоровье на %d\n",injury
+                , injuryHealth);
+        setHealthLevel(getHealthLevel() - injuryHealth);
+        setMoodLevel(getMoodLevel() + injury);
     }
 }
